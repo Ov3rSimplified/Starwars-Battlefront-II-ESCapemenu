@@ -8,6 +8,10 @@ return {
     ScriptExtraInformations = {},
     
     Scriptindex = "swbfiiesc", // NEVER CHANGE THIS SHHIT
+
+    Version = "1.0.1",
+
+    Downloadshort = "GIT",
      
     Config = { 
         
