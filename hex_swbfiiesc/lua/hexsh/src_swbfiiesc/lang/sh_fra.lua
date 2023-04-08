@@ -1,0 +1,1 @@
+HexSh.Lang["src_swbfiiesc"]["FRA"] = {};

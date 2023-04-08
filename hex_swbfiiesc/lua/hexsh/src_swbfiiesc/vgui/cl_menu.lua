@@ -1,10 +1,6 @@
     local PANEL = {};
 
-    local sidemat = Material("materials/hclib/swbfii/sideline.png");
-
-    local matz = Material("materials/hcs/bgs/bega.png");
-
-    local bg = Material("materials/hcs/bgs/bega.png");
+    local sidemat = HexSh.SWBFIIESC.UI.SideMat
 
     local white = Color( 255, 255, 255 );
 
@@ -14,7 +10,7 @@
 
     local function name( self )
         
-        local avatar = vgui.Create( "HCLIB.CircleAvatar", self );
+        local avatar = vgui.Create( "SWBFIIESC.CircleAvatar", self );
 
         avatar:SetPos( 70 , -13 );
 
@@ -30,7 +26,7 @@
 
         local scrw, scrh = ScrW(), ScrH();
 
-        if HCLIB.Config.Cfg[ "swbfiiesc" ][ "EnableDrawPlayer" ] then 
+        if HexSh:getIConfig("src_swbfiiesc")[ "EnableDrawPlayer" ] then 
     
             self.dpp = vgui.Create( "DModelPanel", self );
 
@@ -66,7 +62,7 @@
 
                 if ( self.bAnimated ) then self:RunAnimation() end;
     
-                if  HCLIB.Config.Cfg[ "swbfiiesc" ][ "PlayermodelSequence" ] == false then
+                if  HexSh:getIConfig("src_swbfiiesc")[ "PlayermodelSequence" ] == false then
 
                     Entity:SetAngles( Angle( 0, 45, 0 ) );
 
@@ -76,7 +72,7 @@
 
                     if !self.selectedSequence then
 
-                        self.selectedSequence =  HCLIB.Config.Cfg[ "swbfiiesc" ][ "EnterPlayermodelSequence" ];
+                        self.selectedSequence =  HexSh:getIConfig("src_swbfiiesc")[ "EnterPlayermodelSequence" ];
 
                     end;
 
@@ -118,7 +114,7 @@
 
             surface.SetDrawColor( white );
 
-            surface.SetMaterial( sidemat );
+            surface.SetMaterial( HexSh:getImgurImage(sidemat) );
 
             surface.DrawTexturedRect( - 25, 0, w, h );
 
@@ -140,7 +136,7 @@
 
         top:Dock( TOP );
 
-        top:SetText( HCLIB:L( "swbfiiesc", "pausemenu" ) );
+        top:SetText( HexSh:L( "src_swbfiiesc", "pausemenu" ) );
 
         top:SetFont( "RDSRP.ESC.Button" );
 
@@ -153,7 +149,7 @@
 
         bottom:Dock( TOP );
 
-        bottom:SetText( HCLIB:L( "swbfiiesc", "pausemenu" ) );
+        bottom:SetText( HexSh:L( "src_swbfiiesc", "pausemenu" ) );
 
         bottom:SetFont( "RDSRP.ESC.Aurebesh" );
 
@@ -183,7 +179,7 @@
 
         local play = vgui.Create( "SWBFII.Button", scrollmenu );
 
-        play:SetLabel( HCLIB:L( "swbfiiesc", "Play" ) ); 
+        play:SetLabel( HexSh:L( "src_swbfiiesc", "Play" ) ); 
 
         play:SetFunction( function()
 
@@ -192,7 +188,7 @@
         end );
 
 
-        for k, v in pairs( HCLIB.Config.Cfg[ "swbfiiesc" ][ "Buttons" ] ) do 
+        for k, v in pairs( HexSh:getIConfig("src_swbfiiesc")[ "Buttons" ] ) do 
 
             local button = vgui.Create( "SWBFII.Button", scrollmenu );
 
@@ -222,7 +218,7 @@
 
         local options = vgui.Create( "SWBFII.Button", scrollmenu );
 
-        options:SetLabel( HCLIB:L( "swbfiiesc", "Options" ) ); 
+        options:SetLabel( HexSh:L( "src_swbfiiesc", "Options" ) ); 
 
         options:SetFunction( function()
 
@@ -234,7 +230,7 @@
 
         local console = vgui.Create( "SWBFII.Button", scrollmenu );
 
-        console:SetLabel( HCLIB:L( "swbfiiesc", "Console" ) ); 
+        console:SetLabel( HexSh:L( "src_swbfiiesc", "Console" ) ); 
 
         console:SetFunction( function()
 
@@ -246,7 +242,7 @@
 
         local leave = vgui.Create( "SWBFII.Button", scrollmenu );
 
-        leave:SetLabel( HCLIB:L( "swbfiiesc", "Disconnect" ) ); 
+        leave:SetLabel( HexSh:L( "src_swbfiiesc", "Disconnect" ) ); 
 
         leave.disablecheck = true;
 
@@ -260,64 +256,39 @@
 
     function PANEL:Paint( w, h )
         
-        if HCLIB.Config.Cfg[ "swbfiiesc" ][ "EnableBackground" ] or HCLIB.Config.Cfg[ "swbfiiesc" ][ "EnableBackground" ] == nil then 
-
+        if HexSh:getIConfig("src_swbfiiesc")[ "EnableBackground" ] or HexSh:getIConfig("src_swbfiiesc")[ "EnableBackground" ] == nil then 
             surface.SetDrawColor( white )
-
-            surface.SetMaterial( matz )
-
+            surface.SetMaterial( HexSh:getImgurImage(HexSh.SWBFIIESC.BG) )
             surface.DrawTexturedRect( 0, 0, w, h )
-
-        elseif not HCLIB.Config.Cfg[ "swbfiiesc" ][ "EnableBackground" ] then 
-
-            HCLIB:DrawBlurRect( 0, 0, w, h, 3, 6 )
-
+        elseif not HexSh:getIConfig("src_swbfiiesc")[ "EnableBackground" ] then 
+             HexSh:drawBlurRect( 0, 0, w, h, 3, 6 )
         else
-
             surface.SetDrawColor( white )
-
-            surface.SetMaterial( matz )
-
+            surface.SetMaterial( HexSh:getImgurImage(HexSh.SWBFIIESC.BG) )
             surface.DrawTexturedRect( 0, 0, w, h )
-
         end
 
-        if HCLIB.Config.Cfg[ "swbfiiesc" ][ "EnableCustomBackground" ] then
-
-            if not HCLIB.Config.Cfg[ "swbfiiesc" ][ "EnableBackground" ] then 
-
-                return
-
-            end
-
-            if  HCLIB.Config.Cfg[ "swbfiiesc" ][ "EnableCustomBackgroundPath" ] == "" or bg:IsError() or HCLIB:GetImgurImage( HCLIB.Config.Cfg[ "swbfiiesc" ][ "EnableCustomBackgroundPath" ] ) == nil then 
-            
-                bg = Material( "materials/hcs/bgs/bega.png" )
-
+        if HexSh:getIConfig("src_swbfiiesc")[ "EnableCustomBackground" ] then
+            if not HexSh:getIConfig("src_swbfiiesc")[ "EnableBackground" ] then return end
+            if  HexSh:getIConfig("src_swbfiiesc")[ "EnableCustomBackgroundPath" ] == "" then 
+                surface.SetDrawColor( white )
+                surface.SetMaterial( HexSh:getImgurImage(HexSh.SWBFIIESC.BG) )
+                surface.DrawTexturedRect( 0, 0, w, h )
             else
-
-                bg = HCLIB:GetImgurImage( HCLIB.Config.Cfg[ "swbfiiesc" ][ "EnableCustomBackgroundPath" ] )
-
+                surface.SetDrawColor( white )
+                surface.SetMaterial( HexSh:getImgurImage( HexSh:getIConfig("src_swbfiiesc")[ "EnableCustomBackgroundPath" ] ) )
+                surface.DrawTexturedRect( 0, 0, w, h )
             end
-
-            surface.SetDrawColor( white )
-
-            surface.SetMaterial( bg )
-
-            surface.DrawTexturedRect( 0, 0, w, h )
-
         end
 
-        draw.SimpleText( tostring( HCLIB.Config.Cfg[ "swbfiiesc" ][ "ServerTitle" ] ), "SWBFII.Title", w / 2, 5, white, TEXT_ALIGN_CENTER )
+        draw.SimpleText( tostring( HexSh:getIConfig("src_swbfiiesc")[ "ServerTitle" ] ), "SWBFII.Title", w / 2, 5, white, TEXT_ALIGN_CENTER )
 
-        draw.DrawText( "| " .. HCLIB:L("swbfiiesc", "Leftselect") .. "  |  " .. HCLIB:L("swbfiiesc", "Escback") .. " | ", "SWBFII.Button.20", 140, 1050, white, TEXT_ALIGN_LEFT ) 
+        draw.DrawText( "| " .. HexSh:L("src_swbfiiesc", "Leftselect") .. "  |  " .. HexSh:L("src_swbfiiesc", "Escback") .. " | ", "SWBFII.Button.20", 140, 1050, white, TEXT_ALIGN_LEFT ) 
 
         // Avatar
         
         draw.SimpleText( tostring( self.sname ), "SWBFII.Button.20", 160, 25, white, TEXT_ALIGN_LEFT )
         
-       -- draw.SimpleText( HCLIB:L("swbfiiesc", "net"), "SWBFII.Button.20", 130, 39, white, TEXT_ALIGN_LEFT )
-
 
     end;
 

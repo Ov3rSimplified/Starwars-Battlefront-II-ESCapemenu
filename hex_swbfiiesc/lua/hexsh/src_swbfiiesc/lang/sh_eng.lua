@@ -1,5 +1,4 @@
-return {
-
+HexSh.Lang["src_swbfiiesc"]["ENG"] = {
     ["Play"] = "Play",
     ["Options"] = "Options",
     ["Console"] = "Console",

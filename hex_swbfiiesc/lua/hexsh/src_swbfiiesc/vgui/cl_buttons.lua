@@ -2,9 +2,9 @@
 
 local PANEL = {};
 
-local rollsound = "hclib/swbfii/roll.mp3";
+local rollsound = "hexsh/src_swbfiiesc/roll.mp3";
 
-local inputsound = "hclib/swbfii/inputclick.mp3";
+local inputsound = "hexsh/src_swbfiiesc/inputclick.mp3";
 
 local speed = 4;
 
@@ -19,7 +19,7 @@ local ablack = Color( 0, 0, 0, 130);
 
 function PANEL:Init()
 
-    self.ccol = HCLIB.Config.Cfg[ "swbfiiesc" ][ "Color" ];
+    self.ccol = HexSh:getIConfig("src_swbfiiesc")[ "Color" ];
 
     self.disablecheck = false;
 
@@ -37,11 +37,11 @@ function PANEL:Init()
     
     self.font = "SWBFII.Button.50";
 
-    self.switchcolor = HCLIB:LerpColor( self:IsHovered() and white or self.ccol, self:IsHovered() and self.ccol or white, 1);
+    self.switchcolor = HexSh:LerpColor( self:IsHovered() and white or self.ccol, self:IsHovered() and self.ccol or white, 1);
 
     self.cachedfunction = nil;
 
-    self.anim = HCLIB:ClickAnimation( 360, 20, 25, Color( HCLIB.Config.Cfg[ "swbfiiesc" ][ "Color" ][ "r" ], HCLIB.Config.Cfg[ "swbfiiesc" ][ "Color" ][ "g" ], HCLIB.Config.Cfg[ "swbfiiesc" ][ "Color" ][ "b" ], 70 ) )
+    self.anim = HexSh:ClickAnimation( 360, 20, 25, Color( HexSh:getIConfig("src_swbfiiesc")[ "Color" ][ "r" ], HexSh:getIConfig("src_swbfiiesc")[ "Color" ][ "g" ], HexSh:getIConfig("src_swbfiiesc")[ "Color" ][ "b" ], 70 ) )
 
 end;
 
@@ -93,7 +93,7 @@ function PANEL:OnCursorEntered()
  
     surface.PlaySound( rollsound );
     
-    self.switchcolor = HCLIB:LerpColor( white, self.ccol, 0.2 );
+    self.switchcolor = HexSh:LerpColor( white, self.ccol, 0.2 );
 
     
 end;
@@ -134,7 +134,7 @@ function PANEL:Paint( w, h)
 
     surface.DrawOutlinedRect( 0, 0, w, h, 1 );
 
-    if not self:IsHovered() then  self.switchcolor = HCLIB:LerpColor( white, self.ccol, 0.2 ); end;
+    if not self:IsHovered() then  self.switchcolor = HexSh:LerpColor( white, self.ccol, 0.2 ); end;
 
     self.switchcolor:DoLerp();
 
